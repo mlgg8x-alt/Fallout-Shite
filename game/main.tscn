@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://game/main.gd" id="1_main"]
+[ext_resource type="PackedScene" path="res://game/levels/test_level.tscn" id="2_level"]
+[ext_resource type="PackedScene" path="res://game/player/player.tscn" id="3_player"]
+[ext_resource type="PackedScene" path="res://game/ui/hud.tscn" id="4_hud"]
+
+[node name="Main" type="Node"]
+process_mode = 3
+script = ExtResource("1_main")
+
+[node name="TestLevel" parent="." instance=ExtResource("2_level")]
+process_mode = 1
+
+[node name="Player" parent="." instance=ExtResource("3_player")]
+process_mode = 1
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]

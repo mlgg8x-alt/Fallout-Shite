@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://game/props/lever.gd" id="1_lever"]
+[ext_resource type="Script" path="res://game/interaction/interactable.gd" id="2_inter"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_base"]
+size = Vector3(0.5, 1.2, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_base"]
+albedo_color = Color(0.3, 0.32, 0.3, 1)
+metallic = 0.6
+roughness = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_base"]
+material = SubResource("Mat_base")
+size = Vector3(0.5, 1.2, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Mat_handle"]
+albedo_color = Color(0.85, 0.2, 0.15, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_handle"]
+material = SubResource("Mat_handle")
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.5
+
+[node name="Lever" type="StaticBody3D"]
+collision_layer = 9
+collision_mask = 0
+script = ExtResource("1_lever")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+shape = SubResource("BoxShape3D_base")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+mesh = SubResource("BoxMesh_base")
+
+[node name="Handle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Handle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("CylinderMesh_handle")
+
+[node name="Interactable" type="Node" parent="."]
+script = ExtResource("2_inter")
+prompt = "Toggle light"

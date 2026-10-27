@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://game/player/player.gd" id="1_player"]
+[ext_resource type="Script" path="res://game/components/stat_pool.gd" id="2_pool"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+resource_local_to_scene = true
+radius = 0.35
+height = 1.8
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 2
+collision_mask = 5
+floor_snap_length = 0.3
+script = ExtResource("1_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+current = true
+fov = 75.0
+near = 0.05
+
+[node name="InteractRay" type="RayCast3D" parent="Head/Camera3D"]
+target_position = Vector3(0, 0, -2.5)
+collision_mask = 13
+
+[node name="Stats" type="Node" parent="."]
+
+[node name="Health" type="Node" parent="Stats"]
+script = ExtResource("2_pool")
+regen_rate = 1.0
+regen_delay = 5.0
+
+[node name="Stamina" type="Node" parent="Stats"]
+script = ExtResource("2_pool")
+regen_rate = 20.0
+regen_delay = 1.0
+
+[node name="Mana" type="Node" parent="Stats"]
+script = ExtResource("2_pool")
+regen_rate = 5.0
+regen_delay = 2.0
